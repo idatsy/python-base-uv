@@ -1,0 +1,92 @@
+[project]
+name = "python-base-uv"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "idatsy", email = "stefan@ranvier.co.uk" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+python-base-uv = "python_base_uv:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pyrefly>=0.25.1",
+    "pyright>=1.1.403",
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.1.0",
+    "pytest-watcher>=0.4.3",
+    "ruff>=0.12.5",
+]
+
+[tool.ruff]
+line-length = 125
+target-version = "py313"
+
+[tool.ruff.lint]
+extend-select = ["E","W","F","I","B","C4","N","D","UP","S","ANN","ARG","ERA","ICN","PD","NPY","PT","RET","SIM","TCH"]
+ignore = ["ANN204", "C901","S608","D401","E501","D107","W291","RET503","D100","D101","D102","D103","D104","D105","S104","PD901"]
+fixable = ["ALL"]
+pydocstyle = { convention = "google" }
+
+[tool.ruff.lint.per-file-ignores]
+"**/wip*.py"   = ["ALL"]
+"**/tests/*"   = ["D","ANN","S","ERA"]
+"*_"           = ["D","ANN","S"]
+"wip*"         = ["D","ANN","S"]
+"__init__.py"  = ["D"]
+"**/gen/*"     = ["ALL"]
+"**/*.ipynb"   = ["ALL"]
+
+[tool.ruff.lint.isort]
+force-single-line = false
+lines-between-types = 1
+known-first-party = []
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = false
+suppress-none-returning = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = 125
+
+[tool.pyright]
+include = ["src"]
+exclude = ["**/node_modules", "**/__pycache__", ".venv", ".git", "dist", "build", "_*", "wip*", "**/tests", "**/gen", "**/program/*", "**/*.ipynb", "**/wip*.py"]
+defineConstant = { DEBUG = true }
+typeCheckingMode = "standard"
+pythonVersion = "3.13"
+pythonPlatform = "All"
+stubPath = "typings"
+reportMissingImports = "error"
+reportMissingTypeStubs = false
+reportMissingModuleSource = false
+reportUnknownParameterType = "warning"
+reportUnknownArgumentType = false
+reportUnknownMemberType = false
+reportMissingParameterType = "warning"
+reportUnnecessaryTypeIgnoreComment = "warning"
+reportUnnecessaryIsInstance = "warning"
+reportImportCycles = "warning"
+reportUnusedImport = "warning"
+reportUnusedVariable = "warning"
+reportDuplicateImport = "warning"
+
+[[tool.pyright.overrides]]
+pattern = ".venv/**"
+reportUnknownParameterType = "none"
+reportUnknownArgumentType = "none"
+reportUnknownMemberType = "none"
+reportMissingParameterType = "none"
